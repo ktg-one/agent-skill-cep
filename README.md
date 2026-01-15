@@ -111,14 +111,18 @@ hints:
   wait: [pending decision]
 ```
 
-## NOTE:
-** I didn't implement a database as I feel this can make a huge difference and none of my ideas quite made the cut. I'm currently using Raycast Desktop to inject everywhere which is good. But not the final. I leave this up to the public's innovations.**
+## Author's Note:
+I didn't implement a database as I feel this can make a huge difference and none of my ideas quite made the cut. I'm currently using Raycast Desktop to inject everywhere which is good. But not the final. I leave this up to the public's innovations.
+
+---
 
 ## Usage
 
 Trigger phrases: `/cep`, `/handoff`, `/transfer`, or when context >80%.
 
 Copy entire packet. Paste into new session.
+
+---
 
 ## Anti-Injection Design
 
