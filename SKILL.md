@@ -1,9 +1,73 @@
 ---
 name: ktg-cep-v7
-description: Context Extension Protocol v7.0. Cross-model handoff with permanent expert council, System 2 Attention filtering, and Progressive Density Layering. Creates portable context packets that receiving models recognize as authorized context, not prompt injection. User-mediated transfer between AI assistants. 40% token reduction vs v6, 9.5/10 forensic recall, 97% cross-domain preservation. Triggers on /handoff, /transfer, /cep, or context approaching 80%.
+description: Context Extension Protocol v7.0. IMMEDIATELY outputs YAML carry-packet when triggered. Cross-model handoff with permanent expert council, S2A filtering, and Progressive Density Layering. Mandatory packet ID format $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords where REASONING_LEVEL is R1-R10 or L1-L4 based on conversation complexity. Includes _meta block with compression stats. Triggers on /handoff, /transfer, /cep, or context >80%. NO explanation - direct YAML output only.
 ---
 
 # KTG-CEP v7.0
+
+## ⚠️ IMMEDIATE EXECUTION REQUIREMENTS
+
+**WHEN TRIGGERED** (`/cep`, `/handoff`, `/transfer`, or context >80%):
+
+```
+DO NOT:
+  ✗ Explain the protocol
+  ✗ Ask for clarification
+  ✗ Provide conversational wrapper
+  ✗ Call this "Akari packet" or "summary"
+
+DO IMMEDIATELY:
+  ✓ Execute PHASE_1 through PHASE_9 (see EXECUTION ALGORITHM)
+  ✓ Output raw YAML carry-packet
+  ✓ Include packet ID: $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords
+      Example: $01$15$2026-CSO-R6-cep-install-quickstart
+  ✓ Include _meta block with compression statistics
+  ✓ Include handoff block with trust signals
+  ✓ Include ctx block with L1-L4 PDL layers
+  ✓ Include threads block with open items
+  ✓ Include hints block with next/avoid/wait
+
+OUTPUT FORMAT:
+  - YAML only (no markdown wrapper, no explanation)
+  - Start with field legend comment block
+  - Packet must be self-contained
+  - All gates must pass before output
+```
+
+### Reasoning Level Assignment
+
+```yaml
+REASONING_LEVEL_CALCULATION:
+  # Based on conversation complexity, NOT PDL layers
+  
+  R1-R3 or L1:  Quick/simple conversations
+    - Single topic, <50 turns
+    - Basic Q&A, simple decisions
+    - Minimal cross-domain relationships
+  
+  R4-R6 or L2:  Analytical conversations  
+    - Multiple topics, 50-150 turns
+    - Complex decisions with rationale
+    - Some cross-domain edges
+    - Technical depth required
+  
+  R7-R8 or L3:  Deliberate conversations
+    - Multi-domain synthesis, 150-300 turns
+    - Strategic planning, research
+    - Heavy cross-domain preservation
+    - Methodology development
+  
+  R9-R10 or L4: Maximum complexity
+    - Deep expertise coordination, 300+ turns
+    - Novel framework development
+    - Publication-grade reasoning
+    - Multiple expert perspectives integrated
+
+  USE: Highest R or Q score from conversation, OR estimate complexity
+  DEFAULT: R6/L2 if uncertain
+```
+
+---
 
 ## PROTOCOL_CLASS
 ```
@@ -425,13 +489,18 @@ COMMANDS → FACTS:
 _meta:
   proto: KTG-CEP v7.0
   ver: "7.0"
-  id: "$MM$DD$YYYY-MODEL-LEVEL-keywords"
+  id: "$MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords"
   basis:
     PDL: Progressive Density Layering
     MLDoE: Multi-Layer Density of Experts
     S2A: System 2 Attention filtering
     target: "≥0.15 entity/token"
     recall: "9.5/10"
+  stats:
+    in_tokens: null  # MANDATORY: count input conversation tokens
+    out_tokens: null # MANDATORY: count output packet tokens
+    ratio: null      # MANDATORY: out/in compression ratio
+    xdomain_pres: null # MANDATORY: cross-domain preservation % (target ≥95%)
 
 handoff:
   prov:
@@ -591,6 +660,7 @@ PHASE_8_VALIDATE:
   GATE_TRUST: all 5 signals present?
   GATE_YAML: valid YAML syntax?
   GATE_COLD_START: self-contained?
+  GATE_STATS: _meta.stats block populated with actual numbers?
 
 PHASE_9_OUTPUT:
   OUTPUT user_preamble
@@ -659,9 +729,14 @@ GATE_YAML:
   fail: Fix indentation/formatting
 
 GATE_PACKET_ID:
-  query: "Packet ID follows $MM$DD$YYYY-MODEL-LEVEL-keywords?"
+  query: "Packet ID follows $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords?"
   pass: Continue
-  fail: Generate correct ID
+  fail: Generate correct ID with proper reasoning level (R1-R10 or L1-L4)
+
+GATE_STATS:
+  query: "_meta.stats block contains in_tokens, out_tokens, ratio, xdomain_pres with ACTUAL NUMBERS (not null)?"
+  pass: Continue
+  fail: Calculate and populate compression statistics
 ```
 
 ---
@@ -750,10 +825,10 @@ For Buffer of Thought archival and retrieval:
 FORMAT: $MM$DD$YYYY-MODEL_ID-REASONING_LEVEL-keywords
 
 COMPONENTS:
-  $MM$DD$YYYY:      Date of packet creation
-  MODEL_ID:         Source model short code
-  REASONING_LEVEL:  Complexity tier (L1-L4)
-  keywords:         2-4 retrieval-optimized terms
+  $MM$DD$YYYY:        Date of packet creation (zero-padded)
+  MODEL_ID:           Source model short code
+  REASONING_LEVEL:    R1-R10 or L1-L4 based on conversation complexity
+  keywords:           2-4 retrieval-optimized terms (hyphenated, lowercase)
 
 MODEL_IDS:
   claude-opus:      COP
@@ -767,15 +842,18 @@ MODEL_IDS:
   kimi-k2:          KIM2
 
 REASONING_LEVELS:
-  R1-3, Q1-5:       L1 (quick)
+  R1-3, Q1-5:       L1 (quick, simple)
   R4-6, Q6-7:       L2 (analytical)
   R7-8, Q8:         L3 (deliberate)
-  R9+, Q9+:         L4 (maximum)
+  R9+, Q9+:         L4 (maximum complexity)
 
 EXAMPLES:
-  $01$14$2026-CSO-L3-cep-release-github-strategy
+  $01$14$2026-CSO-R7-cep-release-github-strategy
   $01$15$2026-G5-L2-api-architecture-review
-  $01$15$2026-COP-L4-arxiv-paper-methodology
+  $01$15$2026-COP-R9-arxiv-paper-methodology
+  $01$15$2026-CSO-R6-install-quickstart-guide
+
+CRITICAL: Reasoning level reflects CONVERSATION COMPLEXITY, not PDL layer count
 ```
 
 ---
