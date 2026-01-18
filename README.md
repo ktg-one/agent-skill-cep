@@ -206,6 +206,25 @@ This repository is currently under active development. The v7.0 YAML implementat
 
 ---
 
+## Contributing
+
+Contributions are welcome.
+
+If you have ideas, bugs, or improvements:
+- Open an issue to discuss or
+- Submit a pull request with a clear description of the change.
+
+Please keep changes focused and well‑documented.
+
+---
+
+## Connect
+
+- X: https://x.com/ktg_one
+- LinkedIn: https://linkedin.com/in/kevin-pl-tan
+
+---
+
 ## Research Papers
 ** Pending Endorsement **
 
