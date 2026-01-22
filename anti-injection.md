@@ -9,7 +9,7 @@ Cross-model context transfer can appear as:
   - Manipulation by "another AI"
 
 Receiving models are trained to resist these patterns.
-CEP v7 must signal COLLABORATION not CONTROL.
+CEP v8 must signal COLLABORATION not CONTROL.
 ```
 
 ## INJECTION PATTERNS TO AVOID

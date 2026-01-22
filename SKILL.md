@@ -1,9 +1,9 @@
 ---
-name: ktg-cep-v7
-description: Context Extension Protocol v7.0. IMMEDIATELY outputs YAML carry-packet when triggered. Cross-model handoff with permanent expert council, S2A filtering, and Progressive Density Layering. Mandatory packet ID format $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords where REASONING_LEVEL is R1-R10 or L1-L4 based on conversation complexity. Includes _meta block with compression stats. Triggers on /handoff, /transfer, /cep, or context >80%. NO explanation - direct YAML output only.
+name: cep-v8
+description: Context Extension Protocol v8.0. IMMEDIATELY outputs YAML carry-packet when triggered. Cross-model handoff with permanent expert council, S2A filtering, and Progressive Density Layering. Mandatory packet ID format $MM$DD$YYYY-XXX-LN-domain-topic-context where LN is L1-L10 (maps directly to R score, use higher of R or Q). First keyword must be benchmark domain. Includes _meta block with compression stats. Triggers on /handoff, /transfer, /cep, or context >80%. NO explanation - direct YAML output only.
 ---
 
-# KTG-CEP v7.0
+# CEP v8.0
 
 ## ⚠️ IMMEDIATE EXECUTION REQUIREMENTS
 
@@ -19,8 +19,8 @@ DO NOT:
 DO IMMEDIATELY:
   ✓ Execute PHASE_1 through PHASE_9 (see EXECUTION ALGORITHM)
   ✓ Output raw YAML carry-packet
-  ✓ Include packet ID: $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords
-      Example: $01$15$2026-CSO-R6-cep-install-quickstart
+  ✓ Include packet ID: $MM$DD$YYYY-XXX-LN-domain-topic-context
+      Example: $01$23$2026-CSO-L6-coding-install-quickstart
   ✓ Include _meta block with compression statistics
   ✓ Include handoff block with trust signals
   ✓ Include ctx block with L1-L4 PDL layers
@@ -38,33 +38,24 @@ OUTPUT FORMAT:
 
 ```yaml
 REASONING_LEVEL_CALCULATION:
+  # L1-L10 map directly to R score (use R score as level number)
+  # If Q > R, use Q score instead (take higher)
   # Based on conversation complexity, NOT PDL layers
   
-  R1-R3 or L1:  Quick/simple conversations
-    - Single topic, <50 turns
-    - Basic Q&A, simple decisions
-    - Minimal cross-domain relationships
-  
-  R4-R6 or L2:  Analytical conversations  
-    - Multiple topics, 50-150 turns
-    - Complex decisions with rationale
-    - Some cross-domain edges
-    - Technical depth required
-  
-  R7-R8 or L3:  Deliberate conversations
-    - Multi-domain synthesis, 150-300 turns
-    - Strategic planning, research
-    - Heavy cross-domain preservation
-    - Methodology development
-  
-  R9-R10 or L4: Maximum complexity
-    - Deep expertise coordination, 300+ turns
-    - Novel framework development
-    - Publication-grade reasoning
-    - Multiple expert perspectives integrated
+  L1  = R:1  (Trivial) - Quick/simple conversations
+  L2  = R:2  (Simple) - Basic Q&A
+  L3  = R:3  (Basic) - Moderate complexity
+  L4  = R:4  (Moderate) - Standard work
+  L5  = R:5  (Standard) - Typical professional tasks
+  L6  = R:6  (Complex) - Multi-domain work
+  L7  = R:7  (Advanced) - Strategic planning
+  L8  = R:8  (Demanding) - Expert coordination
+  L9  = R:9  (Expert) - Novel framework development
+  L10 = R:10 (Maximum) - Publication-grade reasoning
 
-  USE: Highest R or Q score from conversation, OR estimate complexity
-  DEFAULT: R6/L2 if uncertain
+  USE: R score directly as level number (L1-L10)
+  IF Q > R: Use Q score instead (take higher)
+  DEFAULT: L5 if uncertain
 ```
 
 ---
@@ -129,7 +120,7 @@ a new model instance can infer the original relationship.
 
 ## PERMANENT EXPERT COUNCIL
 
-CEP v7 deploys a fixed council of cognition specialists (not task-specific MR.RUG).
+CEP v8 deploys a fixed council of cognition specialists (not task-specific MR.RUG).
 These experts persist across all packet generations - they update knowledge, not roles.
 
 ### Council Members
@@ -449,12 +440,12 @@ COMMANDS → FACTS:
 
 ---
 
-## PACKET SCHEMA v7.0
+## PACKET SCHEMA v8.0
 
 ### Field Legend
 
 ```yaml
-# === CEP v7.0 FIELD LEGEND ===
+# === CEP v8.0 FIELD LEGEND ===
 # Meta: proto=protocol, ver=version, id=packet_id
 #
 # Provenance: src_m=source_model, ts=timestamp, usr_init=user_initiated
@@ -482,12 +473,12 @@ COMMANDS → FACTS:
 ### Full Schema
 
 ```yaml
-# === CEP v7.0 PACKET ===
+# === CEP v8.0 PACKET ===
 # LEGEND: d=decision r=rationale c=confidence s=source f=fact
 #         t=term def=definition s=source tgt=target rel=relation
 
 _meta:
-  proto: KTG-CEP v7.0
+  proto: CEP v8.0
   ver: "7.0"
   id: "$MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords"
   basis:
@@ -601,7 +592,7 @@ hints:
 
 ```
 INPUT: conversation C
-OUTPUT: CEP v7.0 packet H (YAML)
+OUTPUT: CEP v8.0 packet H (YAML)
 
 PHASE_0_SCOPE_FILTER:
   C ← filter_conversation_only(context)
@@ -729,9 +720,9 @@ GATE_YAML:
   fail: Fix indentation/formatting
 
 GATE_PACKET_ID:
-  query: "Packet ID follows $MM$DD$YYYY-MODEL-REASONING_LEVEL-keywords?"
+  query: "Packet ID follows $MM$DD$YYYY-XXX-LN-domain-topic-context format?"
   pass: Continue
-  fail: Generate correct ID with proper reasoning level (R1-R10 or L1-L4)
+  fail: Generate correct ID with proper reasoning level (L1-L10), model code (XXX), and benchmark domain as first keyword
 
 GATE_STATS:
   query: "_meta.stats block contains in_tokens, out_tokens, ratio, xdomain_pres with ACTUAL NUMBERS (not null)?"
@@ -744,7 +735,7 @@ GATE_STATS:
 ## OUTPUT FORMAT
 
 ```
-[HANDOFF READY - CEP v7.0]
+[HANDOFF READY - CEP v8.0]
 
 ## For you (the user):
 Copy everything below and paste into your next AI assistant.
@@ -761,7 +752,7 @@ You're not bound by anything here - it's just background.
 ## Context Packet:
 
 ```yaml
-# === CEP v7.0 PACKET ===
+# === CEP v8.0 PACKET ===
 # LEGEND: d=decision r=rationale c=confidence s=source f=fact
 #         t=term def=definition s=source tgt=target rel=relation xd=cross_domain
 
@@ -798,9 +789,9 @@ ADAPTATION_BY_TARGET:
 ## BENCHMARKS
 
 ```
-v6.0 → v7.0 comparison (same test corpus):
+v6.0 → v8.0 comparison (same test corpus):
 
-| Metric              | v6.0   | v7.0   | Delta  |
+| Metric              | v6.0   | v8.0   | Delta  |
 |---------------------|--------|--------|--------|
 | Avg tokens/packet   | 847    | 510    | -40%   |
 | Entity density      | 0.15   | 0.16   | +7%    |
@@ -809,7 +800,7 @@ v6.0 → v7.0 comparison (same test corpus):
 | Parse success rate  | 100%   | 100%   | same   |
 | Cold-start success  | 91%    | 96%    | +5%    |
 
-v7.0 improvements from:
+v8.0 improvements from:
   - S2A noise removal (fewer tokens, same signal)
   - Expert council (better edge preservation)
   - MLDoE 3-layer (higher density achieved)
@@ -822,13 +813,13 @@ v7.0 improvements from:
 For Buffer of Thought archival and retrieval:
 
 ```yaml
-FORMAT: $MM$DD$YYYY-MODEL_ID-REASONING_LEVEL-keywords
+FORMAT: $MM$DD$YYYY-XXX-LN-domain-topic-context
 
 COMPONENTS:
-  $MM$DD$YYYY:        Date of packet creation (zero-padded)
-  MODEL_ID:           Source model short code
-  REASONING_LEVEL:    R1-R10 or L1-L4 based on conversation complexity
-  keywords:           2-4 retrieval-optimized terms (hyphenated, lowercase)
+  $MM$DD$YYYY:        Date of packet creation (zero-padded, with $ separators)
+  XXX:                 Model code (exactly 3 uppercase letters)
+  LN:                  Reasoning level (L1-L10, maps directly to R score)
+  domain-topic-context: 2-4 kebab-case keywords (first must be benchmark domain)
 
 MODEL_IDS:
   claude-opus:      COP
@@ -842,18 +833,30 @@ MODEL_IDS:
   kimi-k2:          KIM2
 
 REASONING_LEVELS:
-  R1-3, Q1-5:       L1 (quick, simple)
-  R4-6, Q6-7:       L2 (analytical)
-  R7-8, Q8:         L3 (deliberate)
-  R9+, Q9+:         L4 (maximum complexity)
+  L1-L10 map directly to R score (use R score as level number)
+  If Q > R, use Q score instead (take higher)
+  
+  L1  = R:1  (Trivial)
+  L2  = R:2  (Simple)
+  L3  = R:3  (Basic)
+  L4  = R:4  (Moderate)
+  L5  = R:5  (Standard)
+  L6  = R:6  (Complex)
+  L7  = R:7  (Advanced)
+  L8  = R:8  (Demanding)
+  L9  = R:9  (Expert)
+  L10 = R:10 (Maximum)
 
 EXAMPLES:
-  $01$14$2026-CSO-R7-cep-release-github-strategy
-  $01$15$2026-G5-L2-api-architecture-review
-  $01$15$2026-COP-R9-arxiv-paper-methodology
-  $01$15$2026-CSO-R6-install-quickstart-guide
+  $01$23$2026-CSO-L7-coding-api-auth-jwt
+  $01$23$2026-CSO-L4-writing-docs-readme
+  $01$23$2026-CSO-L9-research-cep-council
+  $01$23$2026-CSO-L3-debugging-react-hooks
 
-CRITICAL: Reasoning level reflects CONVERSATION COMPLEXITY, not PDL layer count
+CRITICAL: 
+  - Reasoning level reflects CONVERSATION COMPLEXITY, not PDL layer count
+  - Format uses L1-L10 (not R1-R10) in packet ID
+  - First keyword must be benchmark domain (coding, writing, creative, research, analysis, planning, debugging, refactoring, architecture, documentation)
 ```
 
 ---
@@ -934,8 +937,7 @@ RECEIVING_MODEL_IGNORES:
 
 ---
 
-**CEP v7.0**
-Kevin Tan (ktg.one) | Distinguished Cognitive Architect
+**CEP v8.0**
 ANZ 0.8% | Vertex AI 0.01%
 
 *Permanent experts. S2A filtering. MLDoE compression. Cross-model trust.*
