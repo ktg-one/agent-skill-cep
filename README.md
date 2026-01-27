@@ -26,7 +26,7 @@ Context windows are finite. Platform compaction is lossy. Cross-model handoffs l
 Quicksave v9.1 creates **carry-packets** using:
 - **Progressive Density Layering (PDL)** — 4-layer information hierarchy
 - **Japanese Kanji Compression** — 40-55% token reduction
-- **Negentropic Coherence Lattice (NCL)** — Drift validation before handoff
+- **Negentropic Coherence Lattice (NCL)** — Drift validation before handoff **DESERVES IT'S OWN BLOGPOST**
 - **System 2 Attention (S2A)** — Noise filtering for LLM efficiency
 - **Multi-Layer Density of Experts (MLDoE)** — 5-Embodied Chain of Density
 
