@@ -2,7 +2,7 @@
 
 **Context Extension Protocol** — Cross-model context handoff via Japanese semantic compression and negentropic coherence validation.
 
-![<img width="2752" height="1536" alt="unnamed (2)" src="https://github.com/user-attachments/assets/5006ace7-2017-4e68-a1a8-33f5f7797b26" />
+<img width="2752" height="1536" alt="unnamed (2)" src="https://github.com/user-attachments/assets/5006ace7-2017-4e68-a1a8-33f5f7797b26" />
 
 > *"What must be preserved for a fresh model instance to continue this work?"*
 
