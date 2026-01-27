@@ -36,10 +36,10 @@ Quicksave v9.1 creates **carry-packets** using:
 
 | Metric | Result |
 |--------|--------|
-| Density | ~0.15 ent/tok (0.20+ with kanji) |
+| Density | ~0.15 |
 | Forensic recall | 9.5/10 |
 | Cross-domain preservation | 97% |
-| Model acQuicksavetance | 97% |
+| Model acceptance | 99% |
 | Production testing | 19 months (ktg.one) |
 
 ## Usage
@@ -144,7 +144,7 @@ Quicksave-agent-skill/
 
 ## Tested Models
 
-Claude ✓ | GPT-4/4o ✓ | Gemini ✓ | Qwen ✓ | DeepSeek ✓
+Claude ✓ | GPT-4/4o ✓ | Gemini ✓ | Qwen ✓ | DeepSeek ✓ | KIMIK2 ✓ | Qwen ✓ | Grok4 ✓ 
 
 ## Part of STRAWHATS Framework
 
@@ -163,3 +163,14 @@ MIT — [ktg.one](https://ktg.one)
 ---
 
 *0.15 density. 97% preservation. 9.5/10 recall. NCL validated.*
+
+---
+
+### User Responsibility Clarification
+- **Packet upkeep is yours** — what to save, when, what to discard
+- **Key nodes are your choice** — you decide what's critical for your work
+- **Model retention varies** — different AIs handle context differently; adapt accordingly
+- **Language is personal** — technical jargon, casual tone, domain terminology; use what fits
+- **Format is flexible** — 4-layer structure is a guide, not a mandate
+
+Quicksave is infrastructure. You're the architect.
