@@ -1,4 +1,4 @@
-# Quicksave (Ex-CEP v9.1) 快存
+# Quicksave (Ex-CEP v11.1) 快存
 
 **Context Extension Protocol** — Cross-model context handoff via Japanese semantic compression and negentropic coherence validation.
 
