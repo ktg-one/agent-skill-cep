@@ -1,5 +1,44 @@
 # Changelog
 
+## [12.0] - 2026-02-05
+
+### Changed from v11
+- **Format** — v11's ~40-line teaching packet → ~20-line executable kernel (zero prose)
+- **Kanji** — v11's expanded dictionary (status/roles/domains/tools) → Core-only (決定/進行/却下/因/効/→/⊃)
+- **Validation** — v11's separate gate blocks → Inline checkbox gates (□≥0.15 □xd≥95% □cold)
+- **Density** — Tiered targets (0.12/0.15/0.18) → Fixed 0.15 crystallization point only
+
+### Added from v11
+- **Atomic Contract** — 嘘契約 signature line mandatory in packet header (previously separate section)
+- **Neural Address Mapping** — Explicit L1/L2/L3/L4→token_embed/cross_attention/latent_reasoning/persistent_session mappings
+- **Council Chain Notation** — Sequential execution as single string (建築家→分析家→圧縮家→監査者→復元師)
+
+### Removed from v11
+- All prose explanations ("what is this", "why it matters")
+- Production statistics (6:1 ratio, 9.5/10 recall)
+- Attribution and license headers
+
+---
+
+## [11.0] - 2026-02-05
+
+### Changed from v10
+- **Format** — v10's ~200-line carrier with multi-field expert outputs → ~40-line compressed teaching packet (~60% reduction)
+- **Expert Execution** — v10's "discrete visible outputs required" per expert → Inline one-line prompts (建築家:"lost→recover?...")
+- **NCL Display** — v10's detailed 7-metric breakdown (σ_axis:0.6, σ_loop:0.4...) → Gate-only (σ7≤3 pass/fail)
+- **Enforcement** — v10's Path B detection heuristics ("mental mode" symptoms) → 嘘契約 signature requirement
+
+### Added from v10
+- **Single-File Teaching Format** — Zero external dependencies, inline 辞書 replaces reference files
+- **Routing Logic** — Explicit complexity shortcuts (R≤3:direct | R4-6:建築+圧縮 | R≥7:full+NCL)
+- **Kanji Tier System** — Light0.12/Medium0.15/Heavy0.18 density targets with expansion patterns
+- **Self-Test Emulation** — Cold-start validation prompt for receiving models
+
+### Removed from v10
+- Path B detection heuristics list
+- Multi-field expert output templates (出力/検証/状態 fields)
+- Detailed NCL metric reporting (now calculated but not displayed unless &gt;threshold)
+
 All notable changes to CEP/Quicksave will be documented in this file.
 ## 2026-01-29
 - ##Found I was constantly reminding the models to read the reference files. Apologies to those who didn't realize. It's now in-built into the md.
